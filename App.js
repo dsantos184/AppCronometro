@@ -14,7 +14,7 @@ export default class App extends React.Component {
           source={require("./src/img/waterbg.png")}
           style={styles.bgImage}
         >
-          <View>
+          <View style={styles.containerSuperior}>
             <View style={styles.containerInfo}>
               <View style={styles.info}>
                 <Text style={styles.infoTitulo}>Meta</Text>
@@ -32,11 +32,19 @@ export default class App extends React.Component {
                 <Text style={styles.dado}>insuficiente</Text>
               </View>
             </View>
+          </View>
 
-            <View style={styles.comtainerPercent}>
+          <View style={styles.containerInferior}>
+            <View style={styles.containerInferiorText}>
               <Text style={styles.textPercent}>25%</Text>
             </View>
+
+            <View style={styles.containerIferiorBotao}>
+              <Text>Aqui um botao</Text>
+            </View>
           </View>
+
+          
         </ImageBackground>
       </View>
     );
@@ -48,6 +56,28 @@ const styles = StyleSheet.create({
   {
     flex: 1,
     paddingTop: 20
+  },
+
+  containerSuperior:
+  {
+    flex: 3,
+  },
+
+  containerInferior:
+  {
+    flex: 7,
+  },
+
+  containerInferiorText:
+  {
+    flex: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  containerIferiorBotao:
+  {
+    flex: 2,
   },
 
   bgImage:
@@ -81,11 +111,11 @@ const styles = StyleSheet.create({
     color: '#2b4274',
   },
 
-  comtainerPercent:
+  textPercent:
   {
-    
+    fontSize: 50,
+    color: "#fff",
+    fontWeight: 'bold'
   },
-
-
 
 });
