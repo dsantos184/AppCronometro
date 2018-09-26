@@ -3,12 +3,9 @@ import {
   StyleSheet, 
   Text, 
   View,
-  ImageBackground,
+  Image,
   TouchableOpacity
 } from 'react-native';
-
-import DadosInfo from './src/component/DadosInfo';
-import CalculaConsumo from './src/util/CalculaConsumo';
 
 export default class App extends React.Component {
 
@@ -17,53 +14,34 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      meta: 2000,
-      consumido: 0,
-      status: 'Ruim',
-      percent: 0
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground 
-          source={require("./src/img/waterbg.png")}
-          style={styles.bgImage}
-        >
-          <View style={styles.containerSuperior}>
-            <View style={styles.containerInfo}>
+        <Image 
+          source={require('./src/img/relogio.png')}
+          style={styles.relogioImage}
+        />
 
-              <DadosInfo titulo='Meta' dado={`${this.state.meta}ml`} />
+        <View style={styles.containerButtons}>
 
-              <DadosInfo titulo='Consumido' dado={`${this.state.consumido}ml`} />
+          <TouchableOpacity
+            style={[styles.botaoStartStop, styles.button]}
+            onPress={()=>{}}
+          > 
+            <Text style={styles.textButton}>START</Text>
+          </TouchableOpacity>
 
-              <DadosInfo titulo='Status' dado={this.state.status} />
+            <TouchableOpacity
+            style={[styles.botaoReset, styles.button]}
+            onPress={()=>{}}
+          > 
+            <Text style={styles.textButton}>RESET</Text>
+          </TouchableOpacity>
 
-            </View>
-          </View>
-
-          <View style={styles.containerInferior}>
-
-            <View style={styles.containerInferiorText}>
-              <Text style={styles.textPercent}>{`${this.state.percent}%`}</Text>
-            </View>
-
-            <View style={styles.containerIferiorBotao}>
-              <TouchableOpacity 
-                onPress={()=>{                 
-                  let objDados = CalculaConsumo(this.state);
-                  this.setState(objDados);
-                }}
-                style={styles.botao}
-              >
-                <Text style={styles.textBotao}>Beber 200ml</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          
-        </ImageBackground>
+        </View>
       </View>
     );
   }
@@ -73,67 +51,48 @@ const styles = StyleSheet.create({
   container:
   {
     flex: 1,
-    paddingTop: 20
-  },
-
-  containerSuperior:
-  {
-    flex: 3,
-  },
-
-  containerInferior:
-  {
-    flex: 7,
-  },
-
-  containerInferiorText:
-  {
-    flex: 5,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center'
   },
 
-  containerIferiorBotao:
+  containerButtons:
   {
-    flex: 2,
-    alignItems: 'center',
-  },
-
-  bgImage:
-  {
-    flex: 1,
-    width: null,
-  },
-  containerInfo:
-  {
-    flex: 1,
     flexDirection: 'row',
-    marginTop: 50,
+    marginTop: 30
   },
 
-  textPercent:
+  button:
   {
-    fontSize: 50,
-    color: "#fff",
-    fontWeight: 'bold'
-  },
-
-  botao:
-  {
-    backgroundColor: "#fff",
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 10,
-    width: 200,
+    padding: 5,
+    borderRadius: 8,
+    height: 40,
+    width: 120,
+    justifyContent: 'center',
     alignItems: 'center',
-    elevation: 3
+    elevation: 3,
   },
 
-  textBotao:
+  botaoStartStop:
   {
-    fontSize: 18,
+    backgroundColor: '#28a745',
+    borderWidth: 1,
+    borderColor: '#28a745',
+    marginRight: 50,
+  },
+
+  botaoReset:
+  {
+    backgroundColor: '#e0a800',
+    borderWidth: 1,
+    borderColor: '#e0a800',
+  },
+
+  textButton:
+  {
+    color: '#FFF',
     fontWeight: 'bold',
-    color: '#2b4274',
+    fontSize: 16,
   }
+
 
 });
