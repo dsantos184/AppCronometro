@@ -4,8 +4,9 @@ import {
   Text, 
   View,
   Image,
-  TouchableOpacity
 } from 'react-native';
+
+import Botao from './src/component/Botao'
 
 export default class App extends React.Component {
 
@@ -14,7 +15,50 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
+      timer: 0,
+      botaoText: 'START',
     }
+
+    this.tempo = null;
+
+    this.start = this.start.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  start()
+  { 
+    if( this.tempo == null )
+    {
+        this.tempo = setInterval(()=>{
+        let s = this.state;
+        s.timer += 0.1;
+        s.botaoText = 'STOP';
+        this.setState(s);
+      },100);
+    }
+    else
+    {
+      let s = this.state;
+      clearInterval(this.tempo);
+      s.botaoText = 'START';
+      this.setState(s);
+      this.tempo = null;
+    }
+  }
+
+  reset()
+  {
+    let s = this.state;
+
+    if( this.tempo != null )
+    {
+      clearInterval(this.tempo);    
+    }
+    
+    s.timer = 0;
+    s.botaoText = 'START';
+    this.setState(s);
+    this.tempo = null;
   }
 
   render() {
@@ -24,23 +68,10 @@ export default class App extends React.Component {
           source={require('./src/img/relogio.png')}
           style={styles.relogioImage}
         />
-
-        <View style={styles.containerButtons}>
-
-          <TouchableOpacity
-            style={[styles.botaoStartStop, styles.button]}
-            onPress={()=>{}}
-          > 
-            <Text style={styles.textButton}>START</Text>
-          </TouchableOpacity>
-
-            <TouchableOpacity
-            style={[styles.botaoReset, styles.button]}
-            onPress={()=>{}}
-          > 
-            <Text style={styles.textButton}>RESET</Text>
-          </TouchableOpacity>
-
+        <Text style={styles.textTimer}>{this.state.timer.toFixed(1)}</Text>
+        <View style={styles.containerButtons}>         
+          <Botao corBotao='#28a745' textBotao={this.state.botaoText} executar={()=>{this.start()}} />
+          <Botao corBotao='#e0a800' textBotao='RESET' executar={()=>{this.reset()}} />
         </View>
       </View>
     );
@@ -58,41 +89,15 @@ const styles = StyleSheet.create({
   containerButtons:
   {
     flexDirection: 'row',
-    marginTop: 30
+    marginTop: 80,
+    justifyContent: 'space-around',
   },
 
-  button:
+  textTimer:
   {
-    padding: 5,
-    borderRadius: 8,
-    height: 40,
-    width: 120,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 3,
-  },
-
-  botaoStartStop:
-  {
-    backgroundColor: '#28a745',
-    borderWidth: 1,
-    borderColor: '#28a745',
-    marginRight: 50,
-  },
-
-  botaoReset:
-  {
-    backgroundColor: '#e0a800',
-    borderWidth: 1,
-    borderColor: '#e0a800',
-  },
-
-  textButton:
-  {
-    color: '#FFF',
+    color: '#baa07a',
+    fontSize: 50,
     fontWeight: 'bold',
-    fontSize: 16,
-  }
-
-
+    marginTop: -135,
+  },
 });
